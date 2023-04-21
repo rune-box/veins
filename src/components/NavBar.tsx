@@ -27,6 +27,7 @@ import { FaUser } from 'react-icons/fa';
 import { ViewData } from '../data/ViewData';
 import { JoyIDIcon } from '../icons/Icons';
 import { JoyIDWallet } from '../client/JoyIDWallet';
+import { ViewModelBridge } from '../client/ViewModelBridge';
 
 export const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,8 +40,11 @@ export const NavBar = () => {
     const addr = await wallet.connect();
     setAccount(addr);
     ViewData.wallet = wallet;
+    ViewModelBridge.afterConnected();
   }
-  const tryDisconnect = () => {}
+  const tryDisconnect = () => {
+    ViewModelBridge.afterDisConnected();
+  }
 
   return (
     <Box w="100%" bg="gray.50" px={4}>

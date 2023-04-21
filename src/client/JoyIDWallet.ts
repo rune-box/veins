@@ -23,7 +23,6 @@ export class JoyIDWallet extends Wallet {
             this.joyIdInfo = res.data;
             this.account = this.joyIdInfo.address;
             this.publicKey = this.joyIdInfo.pubkey;
-            console.log(res.data);
         }
         return this.account;
     }
@@ -40,7 +39,6 @@ export class JoyIDWallet extends Wallet {
         if (res.error == null) {
             signature = res.data.signature;
             this.publicKey = res.data.pubkey;
-            console.log(res.data);
         }
         return signature;
     }
