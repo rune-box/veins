@@ -14,7 +14,7 @@ export class JoyIDWallet extends Wallet {
     async connect(): Promise<string> {
         this.account = "";
         const res = await authWithPopup({
-            redirectURL: location.origin + '/',
+            redirectURL: window.location.origin + '/',
             name: AppSettings.appName,
             challenge: 'Connect with ' + AppSettings.appName,
             logo: AppSettings.appIcon,
@@ -31,7 +31,7 @@ export class JoyIDWallet extends Wallet {
     async signMessage(message: string): Promise<string> {
         let signature = "";
         const res = await signWithPopup({
-            redirectURL: location.origin + '/',
+            redirectURL: window.location.origin + '/',
             name: AppSettings.appName,
             challenge: message,
             logo: AppSettings.appIcon,

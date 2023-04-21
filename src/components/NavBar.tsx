@@ -15,7 +15,9 @@ import {
   Button,
   MenuList,
   MenuItem,
+  Text,
   useToast,
+  Avatar,
 } from '@chakra-ui/react';
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 // import { ColorModeSwitcher } from '../ColorModeSwitcher';
@@ -24,14 +26,19 @@ import { RoutesData } from '../data/RoutesData';
 import { FaUser } from 'react-icons/fa';
 import { ViewData } from '../data/ViewData';
 import { JoyIDIcon } from '../icons/Icons';
+import { JoyIDWallet } from '../client/JoyIDWallet';
 
 export const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [account, setAccount] = React.useState("");
   const nav = useNavigate();
   const toast = useToast();
 
   const connectWithJoyID = async () => {
-    //
+    const wallet = new JoyIDWallet();
+    const addr = await wallet.connect();
+    setAccount(addr);
+    ViewData.wallet = wallet;
   }
   const tryDisconnect = () => {}
 
@@ -57,16 +64,20 @@ export const NavBar = () => {
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-              {ViewData.wallet ? <Menu>
+              {account && account.length > 4 ? <Menu>
                 <MenuButton colorScheme='cyan' size="lg"
-                  as={Button} leftIcon={<FaUser />}
+                  as={Button}
                   rounded={'full'}
                   variant={'link'}
                   cursor={'pointer'}
-                  minW={0}
-                >Disconnect</MenuButton>
+                  minW={0}>
+                    <HStack>
+                      <Avatar name={account} src={`https://robohash.org/${account}.png?set=set1`} />
+                      <Text>{account.substring(0, 4) + "..." + account.substring(account.length - 4)}</Text>
+                    </HStack>
+                  </MenuButton>
                 <MenuList alignItems={'center'}>
-                  <MenuItem onClick={tryDisconnect}>accounts.json</MenuItem>
+                  <MenuItem onClick={tryDisconnect}>Disconnect</MenuItem>
                 </MenuList>
               </Menu> : <Menu>
                 <MenuButton colorScheme='cyan' size="lg"

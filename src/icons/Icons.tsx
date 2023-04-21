@@ -9,7 +9,7 @@ export const CkbIcon = forwardRef<ImageProps, "img">((props: any, ref: any) => {
 });
 
 export const JoyIDIcon = forwardRef<ImageProps, "img">((props: any, ref: any) => {
-    return <chakra.img src={joyid} ref={ref} width="1em" height="1em" {...props} />
+    return <chakra.img src={joyid} ref={ref} width="2em" height="2em" {...props} />
 });
 
 // export const StacksIcon = forwardRef<ImageProps, "img">((props: any, ref: any) => {
