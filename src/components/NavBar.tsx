@@ -41,14 +41,16 @@ export const NavBar = () => {
     setAccount(addr);
 
     ViewData.wallet = wallet;
-    ViewModelBridge.afterConnected();
+    if(ViewModelBridge.afterConnected)
+      ViewModelBridge.afterConnected();
 
     nav(RoutesData.Start);
   }
   const tryDisconnect = () => {
     setAccount("");
     ViewData.wallet = null;
-    ViewModelBridge.afterDisConnected();
+    if(ViewModelBridge.afterDisConnected)
+      ViewModelBridge.afterDisConnected();
 
     nav(RoutesData.Home);
   }

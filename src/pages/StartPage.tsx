@@ -28,7 +28,9 @@ export const StartPage = () => {
     const toast = useToast();
     const nav = useNavigate();
 
-    const afterConnected = async () => {
+    const prepare = async () => {
+        getGeo();
+        
         const addr = ViewData.wallet?.account || "";
         if(!addr || addr.length === 0)
             return;
@@ -51,10 +53,7 @@ export const StartPage = () => {
         setCkbBalance(balance);
         setTxsCount(txs);
     }
-    const afterDisConnected = () => {
-        setAccount("");
-        ViewData.wallet = null;
-    }
+
     const afterGotGeo = (position: any) => {
         const glp = position as GeolocationPosition;
         const speed = glp.coords.speed || 0;
@@ -88,9 +87,7 @@ export const StartPage = () => {
         //
         // You need to restrict it at some point
         // This is just dummy code and should be replaced by actual
-        getGeo();
-        ViewModelBridge.afterConnected = afterConnected;
-        ViewModelBridge.afterDisConnected = afterDisConnected;
+        prepare();
       }, []);
     return (
         <VStack spacing={4}>
