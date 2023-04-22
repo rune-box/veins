@@ -5,7 +5,9 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { config } from '@joyid/core'
-config.setNetWork('testnet') // testnet/mainnet
+import { ViewModelBridge } from "./client/ViewModelBridge"
+
+config.setNetWork(ViewModelBridge.nervosNetwork);
 
 document.title = "Veins";
 const container = document.getElementById("root")

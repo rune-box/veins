@@ -7,14 +7,16 @@ import {
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { StartPage } from "./pages/StartPage"
 import { RoutesData } from "./data/RoutesData"
+import { HomePage } from "./pages/HomePage"
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box textAlign="center" fontSize="xl">
     <BrowserRouter>
         <Routes>
+          <Route path={RoutesData.Home} element={<HomePage />} />
           <Route path={RoutesData.Start} element={<StartPage />} />
-          <Route path="*" element={<StartPage />} />
+          <Route path="*" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
     </Box>

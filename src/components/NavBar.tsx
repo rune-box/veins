@@ -31,7 +31,7 @@ import { ViewModelBridge } from '../client/ViewModelBridge';
 
 export const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [account, setAccount] = React.useState("");
+  const [account, setAccount] = React.useState(ViewData.wallet?.account);
   const nav = useNavigate();
   const toast = useToast();
 
@@ -39,11 +39,18 @@ export const NavBar = () => {
     const wallet = new JoyIDWallet();
     const addr = await wallet.connect();
     setAccount(addr);
+
     ViewData.wallet = wallet;
     ViewModelBridge.afterConnected();
+
+    nav(RoutesData.Start);
   }
   const tryDisconnect = () => {
+    setAccount("");
+    ViewData.wallet = null;
     ViewModelBridge.afterDisConnected();
+
+    nav(RoutesData.Home);
   }
 
   return (
@@ -60,9 +67,8 @@ export const NavBar = () => {
           <HStack spacing={8}>
             <Logo boxSize={12} title="Veins" />
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-              <Link as={ReactLink} to={RoutesData.Start}>
-                Veins
-              </Link>
+              <Link as={ReactLink} to={RoutesData.Home}>Home</Link>
+              {account && account.length > 5 ? <Link as={ReactLink} to={RoutesData.Start}>Start</Link> : null}
             </HStack>
           </HStack>
 
@@ -75,11 +81,11 @@ export const NavBar = () => {
                   variant={'link'}
                   cursor={'pointer'}
                   minW={0}>
-                    <HStack>
-                      <Avatar name={account} src={`https://robohash.org/${account}.png?set=set1`} />
-                      <Text>{account.substring(0, 4) + "..." + account.substring(account.length - 4)}</Text>
-                    </HStack>
-                  </MenuButton>
+                  <HStack>
+                    <Avatar name={account} src={`https://robohash.org/${account}.png?set=set1`} />
+                    <Text>{account.substring(0, 4) + "..." + account.substring(account.length - 4)}</Text>
+                  </HStack>
+                </MenuButton>
                 <MenuList alignItems={'center'}>
                   <MenuItem onClick={tryDisconnect}>Disconnect</MenuItem>
                 </MenuList>
@@ -92,9 +98,9 @@ export const NavBar = () => {
                   minW={0}
                 >Connect</MenuButton>
                 <MenuList alignItems={'center'}>
-                  <MenuItem icon={<JoyIDIcon/>} onClick={connectWithJoyID}>JoyID</MenuItem>
+                  <MenuItem icon={<JoyIDIcon />} onClick={connectWithJoyID}>JoyID</MenuItem>
                 </MenuList>
-              </Menu> }
+              </Menu>}
               {/* <ColorModeSwitcher /> */}
             </Stack>
           </Flex>
@@ -103,9 +109,8 @@ export const NavBar = () => {
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            {/* <Link as={ReactLink} to={RoutesData.Start}>
-              Select Data Folder
-            </Link> */}
+            <Link as={ReactLink} to={RoutesData.Home}>Home</Link>
+            {account && account.length > 5 ? <Link as={ReactLink} to={RoutesData.Start}>Start</Link> : null}
           </Stack>
         </Box>
       ) : null}

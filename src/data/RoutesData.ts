@@ -1,3 +1,4 @@
 export const RoutesData = {
-    Start: "/"
+    Home: "/",
+    Start: "/start"
 }
