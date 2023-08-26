@@ -1,4 +1,5 @@
 export const RoutesData = {
-    Home: "/",
-    Start: "/start"
+    Home: "/rune/veins",
+    Start: "/rune/veins/start",
+    NearBy: "/rune/veins/nearby",
 }

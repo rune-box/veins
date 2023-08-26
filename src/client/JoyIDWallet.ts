@@ -8,7 +8,7 @@ export class JoyIDWallet extends Wallet {
     
     constructor() {
         super();
-        this.wallet = ProviderKeys.JoyID;
+        this.walletProvider = ProviderKeys.JoyID;
     }
 
     async connect(): Promise<string> {

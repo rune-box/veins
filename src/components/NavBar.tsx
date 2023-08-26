@@ -39,6 +39,7 @@ export const NavBar = () => {
     const wallet = new JoyIDWallet();
     const addr = await wallet.connect();
     setAccount(addr);
+    console.log(`${addr} logged in.`);
 
     ViewData.wallet = wallet;
     if(ViewModelBridge.afterConnected)
@@ -71,6 +72,7 @@ export const NavBar = () => {
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               <Link as={ReactLink} to={RoutesData.Home}>Home</Link>
               {account && account.length > 5 ? <Link as={ReactLink} to={RoutesData.Start}>Start</Link> : null}
+              {account && account.length > 5 ? <Link as={ReactLink} to={RoutesData.NearBy}>NearBy</Link> : null}
             </HStack>
           </HStack>
 
@@ -113,6 +115,7 @@ export const NavBar = () => {
           <Stack as={'nav'} spacing={4}>
             <Link as={ReactLink} to={RoutesData.Home}>Home</Link>
             {account && account.length > 5 ? <Link as={ReactLink} to={RoutesData.Start}>Start</Link> : null}
+            {account && account.length > 5 ? <Link as={ReactLink} to={RoutesData.NearBy}>NearBy</Link> : null}
           </Stack>
         </Box>
       ) : null}
